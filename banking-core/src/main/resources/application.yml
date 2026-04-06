@@ -1,0 +1,84 @@
+server:
+  port: 8081
+#  servlet:
+#    context-path: /api
+spring:
+  application:
+    name: banking-core
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ep-square-poetry-a4w07xng-pooler.us-east-1.aws.neon.tech/core_banking
+    username: core_banking_owner
+    password: npg_fvWIVZA8S5EP
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+#    log:
+#      sql: true
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+#        dialect: org.hibernate.spatial.dialect.postgis.PostgisPG10Dialect
+        globally_quoted_identifiers: true
+        format_sql: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${keycloak.auth-server-url}/realms/CorFinance
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui
+
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 2s
+          max-attempts: 5
+          max-interval: 5s
+          multiplier: 1
+    host: http://192.168.1.192
+    port: 5672
+    username: mxsarmiento
+    password: DoDoPa112120%
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
+
+
+gcp.firebase.service-account:
+      classpath:corfinance.json
+
+token:
+  jwt:
+    secret: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+    expiration: 86400000
+    principal-attribute: preferred_username
+
+keycloak:
+  auth-server-url: http://192.168.1.18:9080
+  realm: cor-finance
+  client-id: banking-core
+  client-secret: ZdQpIrng56dCf5JHl4cNUM5d1EHLdc73
+  ssl-required: external
+
+  username: dxavsoul@brainsolutions.nyc
+  password: DoDoPa112120%
+
+stripe:
+  api-key: sk_test_51RJnpuPGwNCc4qpwhWdkntRqaJJkrVuor8DqGhnyAASqdcNlITlk92ggPxHOd6QA0lkJ7DrRuVRhiZULVnkRyQOU00BodLj3jI

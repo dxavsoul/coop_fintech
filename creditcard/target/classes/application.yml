@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: creditcard
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ep-square-poetry-a4w07xng-pooler.us-east-1.aws.neon.tech/corcreditcarddb
+    username: mxsarmiento
+    password: npg_el0mAwQE5VzL@
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    log:
+      sql: true
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.spatial.dialect.postgis.PostgisPG10Dialect
+        globally_quoted_identifiers: true
+        format_sql: true
